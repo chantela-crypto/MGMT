@@ -6,7 +6,8 @@ import { formatCurrency } from '../utils/scoring';
 import { 
   Building2, MapPin, DollarSign, TrendingUp, TrendingDown, 
   Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X,
-  Download, Upload, Edit, Trash2, AlertCircle, CheckCircle,
+  Calendar, Plus, Save, X, Eye, Filter, Grid, List, Download, FileText,
+  Edit, Trash2
   PieChart, Activity, Clock, Users, Zap
 } from 'lucide-react';
 import {

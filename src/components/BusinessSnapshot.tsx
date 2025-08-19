@@ -4,11 +4,10 @@ import { BusinessExpenseData } from '../types/businessExpenses';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { formatCurrency } from '../utils/scoring';
 import { 
-  Building2, MapPin, DollarSign, TrendingUp, TrendingDown, 
+  Building2, MapPin, DollarSign, TrendingUp, TrendingDown,
   Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X,
-  Calendar, Plus, Save, X, Eye, Filter, Grid, List, Download, FileText,
-  Edit, Trash2
-  PieChart, Activity, Clock, Users, Zap
+  Grid, List, Download, FileText, Edit, Trash2, PieChart, 
+  Activity, Clock, Users, Zap
 } from 'lucide-react';
 import {
   BarChart,

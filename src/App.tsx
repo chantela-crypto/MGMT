@@ -40,8 +40,6 @@ import GuestReengagement from './components/GuestReengagement';
 import SOPSpecialProjects from './components/SOPSpecialProjects';
 import DivisionTargets from './components/DivisionTargets';
 import ManagerDashboard from './components/ManagerDashboard';
-import FinancialsDashboard from './components/FinancialsDashboard';
-import BusinessKPIEntry from './components/BusinessKPIEntry';
 import MonthlyCheckInPage from './components/MonthlyCheckInPage';
 import BrandingKPISettings from './components/BrandingKPISettings';
 import BusinessSnapshot from './components/BusinessSnapshot';
@@ -50,7 +48,6 @@ import { useKPIManagement } from './hooks/useKPIManagement';
 import { useDashboardConfig } from './hooks/useDashboardConfig';
 import { getValidatedMenuItems } from './data/sidebarConfig';
 import PageCustomizationWrapper from './components/PageCustomizationWrapper';
-import PayrollPercentagePage2 from './components/PayrollPercentagePage2';
 
 // Sample data for demonstration
 const sampleKPIData: KPIData[] = [
@@ -703,30 +700,6 @@ function App() {
           );
         case 'data-import':
           return <ManualDataImportSystem currentUser={currentUser} />;
-        case 'payroll-percentage-2':
-          return (
-            <PayrollPercentagePage2
-              currentUser={currentUser}
-              divisions={activeDivisions}
-              employees={employeeList}
-              employeeKPIData={employeeKPIData}
-            />
-          );
-        case 'business-kpi-entry':
-          return (
-            <BusinessKPIEntry
-              divisions={divisions}
-              currentUser={currentUser}
-            />
-          );
-        case 'financials':
-          return (
-            <FinancialsDashboard
-              divisions={activeDivisions}
-              employees={employeeList}
-              currentUser={currentUser}
-            />
-          );
         case 'daily-data':
           return (
             <MonthToDateScoreboard

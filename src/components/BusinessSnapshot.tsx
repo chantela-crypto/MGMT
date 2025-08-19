@@ -5,7 +5,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import { formatCurrency } from '../utils/scoring';
 import { 
   Building2, MapPin, DollarSign, TrendingUp, TrendingDown,
-  Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X,
+  Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X, AlertCircle,
   Grid, List, Download, FileText, Edit, Trash2, PieChart, 
   Activity, Clock, Users, Zap
 } from 'lucide-react';

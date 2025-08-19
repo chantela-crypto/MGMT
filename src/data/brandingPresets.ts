@@ -1,0 +1,190 @@
+import { BrandingPreset, BrandingConfig } from '../types/branding';
+import { SidebarConfig, SidebarMenuItem } from '../types/branding';
+
+export const brandingPresets: BrandingPreset[] = [
+  {
+    id: 'true-balance-default',
+    name: 'True Balance Default',
+    description: 'Current True Balance branding with pink and teal colors',
+    isBuiltIn: true,
+    config: {
+      colors: {
+        primary: '#E091A3',
+        secondary: '#E091A3',
+        accent: '#E091A3',
+        success: '#10b981',
+        warning: '#f59e0b',
+        error: '#ef4444',
+        neutral: '#6b7280',
+        background: '#f9fafb',
+        surface: '#ffffff',
+        text: {
+          primary: '#111827',
+          secondary: '#4b5563',
+          muted: '#9ca3af',
+        },
+      },
+      companyName: 'True Balance Longevity Inc.',
+      tagline: 'Clinic Management Portal',
+    },
+  },
+  {
+    id: 'professional-blue',
+    name: 'Professional Blue',
+    description: 'Clean, professional blue theme for corporate environments',
+    isBuiltIn: true,
+    config: {
+      colors: {
+        primary: '#2563eb',
+        secondary: '#1e40af',
+        accent: '#3b82f6',
+        success: '#059669',
+        warning: '#d97706',
+        error: '#dc2626',
+        neutral: '#64748b',
+        background: '#f8fafc',
+        surface: '#ffffff',
+        text: {
+          primary: '#0f172a',
+          secondary: '#475569',
+          muted: '#94a3b8',
+        },
+      },
+      companyName: 'Professional Healthcare',
+      tagline: 'Management Dashboard',
+    },
+  },
+  {
+    id: 'modern-purple',
+    name: 'Modern Purple',
+    description: 'Contemporary purple theme with gradient accents',
+    isBuiltIn: true,
+    config: {
+      colors: {
+        primary: '#7c3aed',
+        secondary: '#5b21b6',
+        accent: '#8b5cf6',
+        success: '#16a34a',
+        warning: '#ea580c',
+        error: '#dc2626',
+        neutral: '#71717a',
+        background: '#fafafa',
+        surface: '#ffffff',
+        text: {
+          primary: '#18181b',
+          secondary: '#52525b',
+          muted: '#a1a1aa',
+        },
+      },
+      companyName: 'Modern Wellness',
+      tagline: 'Advanced Analytics Platform',
+    },
+  },
+  {
+    id: 'wellness-green',
+    name: 'Wellness Green',
+    description: 'Natural green theme perfect for wellness and health brands',
+    isBuiltIn: true,
+    config: {
+      colors: {
+        primary: '#16a34a',
+        secondary: '#15803d',
+        accent: '#22c55e',
+        success: '#059669',
+        warning: '#d97706',
+        error: '#dc2626',
+        neutral: '#6b7280',
+        background: '#f0fdf4',
+        surface: '#ffffff',
+        text: {
+          primary: '#14532d',
+          secondary: '#166534',
+          muted: '#86efac',
+        },
+      },
+      companyName: 'Wellness Center',
+      tagline: 'Health & Performance Dashboard',
+    },
+  },
+];
+
+export const defaultBrandingConfig: BrandingConfig = {
+  id: 'default',
+  name: 'True Balance Default',
+  colors: {
+    primary: '#E091A3',
+    secondary: '#E091A3',
+    accent: '#E091A3',
+    success: '#10b981',
+    warning: '#f59e0b',
+    error: '#ef4444',
+    neutral: '#6b7280',
+    background: '#f9fafb',
+    surface: '#ffffff',
+    text: {
+      primary: '#111827',
+      secondary: '#4b5563',
+      muted: '#9ca3af',
+    },
+  },
+  typography: {
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    headingFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontSize: {
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+    },
+    fontWeight: {
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+    },
+    lineHeight: {
+      tight: '1.25',
+      normal: '1.5',
+      relaxed: '1.75',
+    },
+  },
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem',
+    '2xl': '3rem',
+  },
+  borderRadius: {
+    sm: '0.25rem',
+    md: '0.375rem',
+    lg: '0.5rem',
+    xl: '0.75rem',
+    full: '9999px',
+  },
+  shadows: {
+    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  },
+  logo: {
+    url: '/logo tb.png',
+    width: '32px',
+    height: '32px',
+    alt: 'True Balance',
+  },
+  companyName: 'True Balance Longevity Inc.',
+  tagline: 'Clinic Management Portal',
+  isActive: true,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+// Sidebar configuration is now managed in src/data/sidebarConfig.ts
+// This ensures single source of truth and prevents duplicates

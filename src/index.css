@@ -1,0 +1,488 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Dynamic Branding */
+:root {
+  /* Brand Colors */
+  --color-primary: #E091A3;
+  --color-secondary: #E091A3;
+  --color-accent: #E091A3;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-neutral: #6b7280;
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #9ca3af;
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-xl: 0.75rem;
+  --border-radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom styles for True Balance branding */
+.legacy-colors {
+  --apple-blue: #007AFF;
+  --apple-blue-light: #5AC8FA;
+  --apple-blue-dark: #0051D5;
+  --apple-gray: #8E8E93;
+  --apple-gray-light: #F2F2F7;
+  --apple-gray-dark: #48484A;
+  --apple-green: #34C759;
+  --apple-orange: #FF9500;
+  --apple-red: #FF3B30;
+  --apple-purple: #AF52DE;
+  
+  /* Division colors */
+  --new-patient: #e6b813;
+  --hormone: #5c6f75;
+  --nutrition: #bfb6d9;
+  --iv-therapy: #91c4ba;
+  --laser: #ff9680;
+  --injectables: #ff6a76;
+  --feminine: #a47d9b;
+  --pcos: #f4647d;
+  --biobalance: #0a868f;
+  --membership: #b04f7e;
+  --call-centre: #ff9680;
+  
+  /* Light tints */
+  --new-patient-light: #fdf6e3;
+  --hormone-light: #f1f3f4;
+  --nutrition-light: #f7f5fc;
+  --iv-therapy-light: #f0f8f6;
+  --laser-light: #fff2ed;
+  --injectables-light: #fff0f1;
+  --feminine-light: #f6f3f5;
+  --pcos-light: #fef2f2;
+  --biobalance-light: #f0fdfa;
+  --membership-light: #fdf2f8;
+  --call-centre-light: #fff2ed;
+}
+
+/* Dynamic division color utilities */
+.bg-division-new-patient { background-color: var(--division-new-patient, #e6b813) !important; }
+.bg-division-hormone { background-color: var(--division-hormone, #5c6f75) !important; }
+.bg-division-nutrition { background-color: var(--division-nutrition, #bfb6d9) !important; }
+.bg-division-iv-therapy { background-color: var(--division-iv-therapy, #91c4ba) !important; }
+.bg-division-laser { background-color: var(--division-laser, #ff9680) !important; }
+.bg-division-injectables { background-color: var(--division-injectables, #ff6a76) !important; }
+.bg-division-guest-care { background-color: var(--division-guest-care, #e6b813) !important; }
+.bg-division-feminine { background-color: var(--division-feminine, #a47d9b) !important; }
+.bg-division-wellness { background-color: var(--division-wellness, #ff9680) !important; }
+.bg-division-pcos { background-color: var(--division-pcos, #f4647d) !important; }
+.bg-division-biobalance { background-color: var(--division-biobalance, #0a868f) !important; }
+.bg-division-membership { background-color: var(--division-membership, #b04f7e) !important; }
+.bg-division-call-centre { background-color: var(--division-call-centre, #ff9680) !important; }
+
+.text-division-new-patient { color: var(--division-new-patient, #e6b813) !important; }
+.text-division-hormone { color: var(--division-hormone, #5c6f75) !important; }
+.text-division-nutrition { color: var(--division-nutrition, #bfb6d9) !important; }
+.text-division-iv-therapy { color: var(--division-iv-therapy, #91c4ba) !important; }
+.text-division-laser { color: var(--division-laser, #ff9680) !important; }
+.text-division-injectables { color: var(--division-injectables, #ff6a76) !important; }
+.text-division-guest-care { color: var(--division-guest-care, #e6b813) !important; }
+.text-division-feminine { color: var(--division-feminine, #a47d9b) !important; }
+.text-division-wellness { color: var(--division-wellness, #ff9680) !important; }
+.text-division-pcos { color: var(--division-pcos, #f4647d) !important; }
+.text-division-biobalance { color: var(--division-biobalance, #0a868f) !important; }
+.text-division-membership { color: var(--division-membership, #b04f7e) !important; }
+.text-division-call-centre { color: var(--division-call-centre, #ff9680) !important; }
+
+.border-division-new-patient { border-color: var(--division-new-patient, #e6b813) !important; }
+.border-division-hormone { border-color: var(--division-hormone, #5c6f75) !important; }
+.border-division-nutrition { border-color: var(--division-nutrition, #bfb6d9) !important; }
+.border-division-iv-therapy { border-color: var(--division-iv-therapy, #91c4ba) !important; }
+.border-division-laser { border-color: var(--division-laser, #ff9680) !important; }
+.border-division-injectables { border-color: var(--division-injectables, #ff6a76) !important; }
+.border-division-guest-care { border-color: var(--division-guest-care, #e6b813) !important; }
+.border-division-feminine { border-color: var(--division-feminine, #a47d9b) !important; }
+.border-division-wellness { border-color: var(--division-wellness, #ff9680) !important; }
+.border-division-pcos { border-color: var(--division-pcos, #f4647d) !important; }
+.border-division-biobalance { border-color: var(--division-biobalance, #0a868f) !important; }
+.border-division-membership { border-color: var(--division-membership, #b04f7e) !important; }
+.border-division-call-centre { border-color: var(--division-call-centre, #ff9680) !important; }
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Ensure proper styling for the app */
+#root {
+  min-height: 100vh;
+}
+
+/* Custom gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+/* Button hover effects */
+.btn-apple {
+  background: var(--color-primary);
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius-lg);
+}
+
+.btn-apple:hover {
+  background: var(--color-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card styling */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Sidebar styling */
+.sidebar {
+  background: var(--color-surface);
+  border-right: 1px solid #e5e7eb;
+}
+
+.sidebar-item {
+  transition: all 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  color: var(--color-primary);
+}
+
+.sidebar-item.active {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+}
+
+/* Header styling */
+.header {
+  background: var(--color-surface);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Performance indicators */
+.performance-excellent {
+  color: var(--color-success);
+  background-color: color-mix(in srgb, var(--color-success) 10%, transparent);
+}
+
+.performance-good {
+  color: var(--color-warning);
+  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
+}
+
+.performance-warning {
+  color: var(--color-warning);
+  background-color: color-mix(in srgb, var(--color-warning) 10%, transparent);
+}
+
+.performance-poor {
+  color: var(--color-error);
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
+}
+
+/* Dynamic branding utility classes */
+.bg-brand-primary { background-color: var(--color-primary) !important; }
+.bg-brand-secondary { background-color: var(--color-secondary) !important; }
+.bg-brand-accent { background-color: var(--color-accent) !important; }
+.bg-brand-surface { background-color: var(--color-surface) !important; }
+.bg-brand-background { background-color: var(--color-background) !important; }
+
+.text-brand-primary { color: var(--color-primary) !important; }
+.text-brand-secondary { color: var(--color-secondary) !important; }
+.text-brand-accent { color: var(--color-accent) !important; }
+.text-brand-text-primary { color: var(--color-text-primary) !important; }
+.text-brand-text-secondary { color: var(--color-text-secondary) !important; }
+.text-brand-text-muted { color: var(--color-text-muted) !important; }
+
+.border-brand-primary { border-color: var(--color-primary) !important; }
+.border-brand-secondary { border-color: var(--color-secondary) !important; }
+
+.shadow-brand-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-brand-md { box-shadow: var(--shadow-md) !important; }
+.shadow-brand-lg { box-shadow: var(--shadow-lg) !important; }
+
+.rounded-brand-sm { border-radius: var(--border-radius-sm) !important; }
+.rounded-brand-md { border-radius: var(--border-radius-md) !important; }
+.rounded-brand-lg { border-radius: var(--border-radius-lg) !important; }
+.rounded-brand-xl { border-radius: var(--border-radius-xl) !important; }
+
+/* Page-specific customization utilities */
+.page-customized {
+  /* Page-specific color utilities */
+}
+
+.page-customized .bg-page-primary { background-color: var(--page-primary) !important; }
+.page-customized .bg-page-secondary { background-color: var(--page-secondary) !important; }
+.page-customized .bg-page-accent { background-color: var(--page-accent) !important; }
+.page-customized .bg-page-surface { background-color: var(--page-surface) !important; }
+.page-customized .bg-page-background { background-color: var(--page-background) !important; }
+
+.page-customized .text-page-primary { color: var(--page-primary) !important; }
+.page-customized .text-page-secondary { color: var(--page-secondary) !important; }
+.page-customized .text-page-accent { color: var(--page-accent) !important; }
+.page-customized .text-page-text-primary { color: var(--page-text-primary) !important; }
+.page-customized .text-page-text-secondary { color: var(--page-text-secondary) !important; }
+.page-customized .text-page-text-muted { color: var(--page-text-muted) !important; }
+
+.page-customized .border-page-primary { border-color: var(--page-primary) !important; }
+.page-customized .border-page-secondary { border-color: var(--page-secondary) !important; }
+
+.page-customized .shadow-page-sm { box-shadow: var(--page-shadow-sm) !important; }
+.page-customized .shadow-page-md { box-shadow: var(--page-shadow-md) !important; }
+.page-customized .shadow-page-lg { box-shadow: var(--page-shadow-lg) !important; }
+
+.page-customized .rounded-page-sm { border-radius: var(--page-radius-sm) !important; }
+.page-customized .rounded-page-md { border-radius: var(--page-radius-md) !important; }
+.page-customized .rounded-page-lg { border-radius: var(--page-radius-lg) !important; }
+.page-customized .rounded-page-xl { border-radius: var(--page-radius-xl) !important; }
+
+/* Page-specific spacing utilities */
+.page-customized .p-page-xs { padding: var(--page-spacing-xs) !important; }
+.page-customized .p-page-sm { padding: var(--page-spacing-sm) !important; }
+.page-customized .p-page-md { padding: var(--page-spacing-md) !important; }
+.page-customized .p-page-lg { padding: var(--page-spacing-lg) !important; }
+.page-customized .p-page-xl { padding: var(--page-spacing-xl) !important; }
+
+.page-customized .m-page-xs { margin: var(--page-spacing-xs) !important; }
+.page-customized .m-page-sm { margin: var(--page-spacing-sm) !important; }
+.page-customized .m-page-md { margin: var(--page-spacing-md) !important; }
+.page-customized .m-page-lg { margin: var(--page-spacing-lg) !important; }
+.page-customized .m-page-xl { margin: var(--page-spacing-xl) !important; }
+
+/* Page-specific typography utilities */
+.page-customized .font-page-heading { font-family: var(--page-heading-font) !important; }
+.page-customized .font-page-body { font-family: var(--page-body-font) !important; }
+
+/* Page-specific gradient utilities */
+.page-customized .gradient-page-primary {
+  background: linear-gradient(135deg, var(--page-primary) 0%, var(--page-accent) 100%);
+}
+
+.page-customized .gradient-page-secondary {
+  background: linear-gradient(135deg, var(--page-secondary) 0%, var(--page-primary) 100%);
+}
+
+/* Monthly Check-in specific gradient */
+.page-monthly-checkin .gradient-page-primary {
+  background: linear-gradient(135deg, #F8708A 0%, #F8708A 100%) !important;
+}
+
+.page-monthly-checkin .gradient-page-secondary {
+  background: linear-gradient(135deg, #F8708A 0%, #F8708A 100%) !important;
+}
+
+/* Page-specific button styles */
+.page-customized .btn-page-primary {
+  background-color: var(--page-primary);
+  color: var(--page-surface);
+  border: 1px solid var(--page-primary);
+  border-radius: var(--page-radius-md);
+  padding: var(--page-spacing-sm) var(--page-spacing-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.page-customized .btn-page-primary:hover {
+  background-color: var(--page-secondary);
+  border-color: var(--page-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--page-shadow-md);
+}
+
+.page-customized .btn-page-secondary {
+  background-color: var(--page-surface);
+  color: var(--page-primary);
+  border: 1px solid var(--page-primary);
+  border-radius: var(--page-radius-md);
+  padding: var(--page-spacing-sm) var(--page-spacing-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.page-customized .btn-page-secondary:hover {
+  background-color: var(--page-primary);
+  color: var(--page-surface);
+}
+
+/* Page-specific focus styles */
+.page-customized input:focus, 
+.page-customized select:focus, 
+.page-customized textarea:focus {
+  outline: none;
+  border-color: var(--page-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-primary) 10%, transparent);
+}
+
+/* Page-specific card styles */
+.page-customized .card-page {
+  background: var(--page-surface);
+  border-radius: var(--page-radius-xl);
+  box-shadow: var(--page-shadow-sm);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.page-customized .card-page:hover {
+  box-shadow: var(--page-shadow-lg);
+  transform: translateY(-2px);
+}
+/* Gradient utilities with CSS variables */
+.gradient-brand-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+}
+
+.gradient-brand-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+}
+
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 50;
+    height: 100vh;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Smooth transitions for branding changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Drag and drop styles */
+.drag-over-above {
+  border-top: 2px solid var(--color-primary, #f4647d) !important;
+}
+
+.drag-over-below {
+  border-bottom: 2px solid var(--color-primary, #f4647d) !important;
+}
+
+.drag-over-inside {
+  background-color: color-mix(in srgb, var(--color-primary, #f4647d) 10%, transparent) !important;
+  border: 2px dashed var(--color-primary, #f4647d) !important;
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Focus styles using brand colors */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+/* Button styles using brand colors */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}

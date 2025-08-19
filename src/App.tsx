@@ -44,6 +44,7 @@ import FinancialsDashboard from './components/FinancialsDashboard';
 import BusinessKPIEntry from './components/BusinessKPIEntry';
 import MonthlyCheckInPage from './components/MonthlyCheckInPage';
 import BrandingKPISettings from './components/BrandingKPISettings';
+import BusinessSnapshot from './components/BusinessSnapshot';
 import { useBranding } from './hooks/useBranding';
 import { useKPIManagement } from './hooks/useKPIManagement';
 import { useDashboardConfig } from './hooks/useDashboardConfig';
@@ -915,6 +916,13 @@ function App() {
               divisions={activeDivisions}
               kpiData={updatedKPIData}
               targets={kpiTargets}
+            />
+          );
+        case 'business-snapshot':
+          return (
+            <BusinessSnapshot
+              divisions={activeDivisions}
+              currentUser={currentUser}
             />
           );
         case 'alerts':

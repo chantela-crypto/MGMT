@@ -134,6 +134,14 @@ export const MASTER_MENU_ITEMS: MenuItem[] = [
     isVisible: true,
     isFolder: false,
   },
+  {
+    id: 'business-snapshot',
+    label: 'Business Snapshot',
+    route: 'business-snapshot',
+    sortOrder: 135,
+    isVisible: true,
+    isFolder: false,
+  },
 ];
 
 // Validation functions

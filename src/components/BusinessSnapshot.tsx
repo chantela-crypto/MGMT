@@ -42,9 +42,11 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
   const [showImportForm, setShowImportForm] = useState<boolean>(false);
   const [importForm, setImportForm] = useState<Partial<BusinessExpenseData>>({
     month: (new Date().getMonth() + 1).toString().padStart(2, '0'),
+  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
     year: new Date().getFullYear(),
     location: 'St. Albert',
   });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
 
   const locations = ['St. Albert', 'Spruce Grove', 'Sherwood Park', 'Wellness'];
 
@@ -261,8 +263,8 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
       return;
     }
 
-    const newExpense: BusinessExpenseData = {
-      id: `expense-${Date.now()}`,
+    const expenseData: BusinessExpenseData = {
+      id: editingExpense?.id || `expense-${Date.now()}`,
       location: importForm.location!,
       month: importForm.month!,
       year: importForm.year!,
@@ -277,13 +279,23 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                     (importForm.supplies || 0) + (importForm.marketing || 0) + (importForm.maintenance || 0) + 
                     (importForm.otherExpenses || 0),
       divisionAllocations: importForm.divisionAllocations || {},
-      enteredBy: currentUser.id,
-      enteredAt: new Date(),
-      lastUpdatedBy: currentUser.id,
+      enteredBy: editingExpense?.enteredBy || currentUser.name,
+      enteredAt: editingExpense?.enteredAt || new Date(),
+      lastUpdatedBy: currentUser.name,
       lastUpdatedAt: new Date(),
     };
 
-    setBusinessExpenses(prev => {
+    if (editingExpense) {
+      // Update existing expense
+      setExpenseData(prev => prev.map(expense => 
+        expense.id === editingExpense.id ? expenseData : expense
+      ));
+      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} updated successfully!`);
+    } else {
+      // Add new expense
+      setExpenseData(prev => [...prev, expenseData]);
+      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} saved successfully!`);
+    }
       const filtered = prev.filter(exp => 
         !(exp.location === newExpense.location && 
           exp.month === newExpense.month && 
@@ -318,8 +330,8 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
       ])
     ];
     
-    const csvContent = csvData.map(row => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
+    setEditingExpense(null);
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

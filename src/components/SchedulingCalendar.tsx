@@ -883,7 +883,6 @@ const SchedulingCalendar: React.FC<SchedulingCalendarProps> = ({
                   </button>
                 )}
               </div>
-              )}
             </div>
           </div>
         </div>

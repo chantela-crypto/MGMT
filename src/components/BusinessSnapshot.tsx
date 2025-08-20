@@ -17,21 +17,6 @@ import {
   Bar,
   Cell,
 } from 'recharts';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  Legend,
-  PieChart as RechartsPieChart,
-  Pie,
-  Cell,
-} from 'recharts';
 
 interface BusinessSnapshotProps {
   divisions: Division[];

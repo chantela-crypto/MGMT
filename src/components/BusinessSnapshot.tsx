@@ -330,44 +330,6 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
     URL.revokeObjectURL(url);
   };
 
-  // Handle editing existing expense
-  const handleEditExpense = (location: string) => {
-    const existingExpense = expenseData.find(expense => 
-      expense.location === location && 
-      expense.month === selectedMonth && 
-      expense.year === selectedYear
-    );
-    
-    if (existingExpense) {
-      setEditingExpense(existingExpense);
-      setSelectedLocation(location);
-      setExpenseForm({
-        rent: existingExpense.rent,
-        utilities: existingExpense.utilities,
-        insurance: existingExpense.insurance,
-        supplies: existingExpense.supplies,
-        marketing: existingExpense.marketing,
-        maintenance: existingExpense.maintenance,
-        otherExpenses: existingExpense.otherExpenses,
-        divisionAllocations: existingExpense.divisionAllocations,
-        notes: existingExpense.notes,
-      });
-      setShowExpenseForm(true);
-    }
-  };
-
-  // Handle deleting expense
-  const handleDeleteExpense = (location: string) => {
-    if (window.confirm(`Are you sure you want to delete expense data for ${location} in ${new Date(selectedYear, parseInt(selectedMonth) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}?`)) {
-      setExpenseData(prev => prev.filter(expense => 
-        !(expense.location === location && 
-          expense.month === selectedMonth && 
-          expense.year === selectedYear)
-      ));
-      alert('Expense data deleted successfully!');
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Enhanced Header */}
@@ -1208,7 +1170,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                   onClick={handleSaveExpense}
                   className="px-4 py-2 bg-[#0c5b63] text-white rounded-md hover:bg-[#0f6b73] flex items-center"
                 >
-                  <Save className="h-4 w-4 mr-2" />
+                    {editingExpense ? 'Update Expenses' : 'Save Expenses'}
                   Save Expenses
                 </button>
               </div>

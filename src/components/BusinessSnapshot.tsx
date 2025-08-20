@@ -7,7 +7,7 @@ import {
   Building2, MapPin, DollarSign, TrendingUp, TrendingDown,
   Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X, AlertCircle,
   Grid, List, Download, FileText, Edit, Trash2, PieChart, 
-  Activity, Clock, Users, Zap, CheckCircle
+  Activity, Clock, Users, Zap
 } from 'lucide-react';
 import {
   BarChart,
@@ -42,10 +42,10 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
   const [showImportForm, setShowImportForm] = useState<boolean>(false);
   const [importForm, setImportForm] = useState<Partial<BusinessExpenseData>>({
     month: (new Date().getMonth() + 1).toString().padStart(2, '0'),
+  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
     year: new Date().getFullYear(),
     location: 'St. Albert',
   });
-  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
 
   const locations = ['St. Albert', 'Spruce Grove', 'Sherwood Park', 'Wellness'];
@@ -287,68 +287,28 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
 
     if (editingExpense) {
       // Update existing expense
-      setBusinessExpenses(prev => prev.map(expense => 
+      setExpenseData(prev => prev.map(expense => 
         expense.id === editingExpense.id ? expenseData : expense
       ));
+      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} updated successfully!`);
     } else {
       // Add new expense
-      const filtered = businessExpenses.filter(exp => 
-        !(exp.location === expenseData.location && 
-          exp.month === expenseData.month && 
-          exp.year === expenseData.year)
+      setExpenseData(prev => [...prev, expenseData]);
+      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} saved successfully!`);
+    }
+      const filtered = prev.filter(exp => 
+        !(exp.location === newExpense.location && 
+          exp.month === newExpense.month && 
+          exp.year === newExpense.year)
       );
-      setBusinessExpenses([...filtered, expenseData]);
-    }
-
-    setShowImportForm(false);
-    setEditingExpense(null);
-    setImportForm({
-      month: (new Date().getMonth() + 1).toString().padStart(2, '0'),
-      year: new Date().getFullYear(),
-      location: 'St. Albert',
+      return [...filtered, newExpense];
     });
-  };
 
-  // Handle edit expense
-  const handleEditExpense = (expense: BusinessExpenseData) => {
-    setEditingExpense(expense);
-    setImportForm(expense);
-    setShowImportForm(true);
-  };
-
-  // Handle delete expense
-  const handleDeleteExpense = (expenseId: string) => {
-    const expense = businessExpenses.find(e => e.id === expenseId);
-    if (!expense) return;
-    
-    setShowDeleteConfirm(expenseId);
-  };
-
-  // Confirm delete expense
-  const confirmDeleteExpense = () => {
-    if (!showDeleteConfirm) return;
-    
-    const expense = businessExpenses.find(e => e.id === showDeleteConfirm);
-    if (expense) {
-      setBusinessExpenses(prev => prev.filter(e => e.id !== showDeleteConfirm));
-    }
-    
-    setShowDeleteConfirm(null);
-  };
-
-  // Cancel delete
-  const cancelDelete = () => {
-    setShowDeleteConfirm(null);
-  };
-
-  // Handle form close
-  const handleCloseForm = () => {
     setShowImportForm(false);
-    setEditingExpense(null);
     setImportForm({
-      location: 'St. Albert',
       month: (new Date().getMonth() + 1).toString().padStart(2, '0'),
       year: new Date().getFullYear(),
+      location: 'St. Albert',
     });
   };
 
@@ -370,8 +330,8 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
       ])
     ];
     
-    const csvContent = csvData.map(row => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
+    setEditingExpense(null);
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1005,11 +965,9 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-8 mx-auto p-6 border w-11/12 max-w-2xl shadow-lg rounded-md bg-white">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-900">
-                {editingExpense ? 'Edit Monthly Expenses' : 'Add Monthly Expenses'}
-              </h3>
+              <h3 className="text-xl font-bold text-gray-900">Add Monthly Expenses</h3>
               <button
-                onClick={handleCloseForm}
+                onClick={() => setShowImportForm(false)}
                 className="text-gray-400 hover:text-gray-600"
               >
                 <X className="h-6 w-6" />
@@ -1215,7 +1173,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
               {/* Form Actions */}
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
                 <button
-                  onClick={handleCloseForm}
+                onClick={handleCloseForm}
                   className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                 >
                   Cancel
@@ -1225,7 +1183,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                   className="px-4 py-2 bg-[#0c5b63] text-white rounded-md hover:bg-[#0f6b73] flex items-center"
                 >
                   <Save className="h-4 w-4 mr-2" />
-                  {editingExpense ? 'Update Expenses' : 'Save Expenses'}
+                {editingExpense ? 'Update Expenses' : 'Save Expenses'}
                 </button>
               </div>
             </div>
@@ -1233,38 +1191,66 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-6 border w-96 shadow-lg rounded-md bg-white">
-            <div className="mt-3 text-center">
-              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                <AlertCircle className="h-6 w-6 text-red-600" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mt-4">Delete Expense Data</h3>
-              <div className="mt-2 px-7 py-3">
-                <p className="text-sm text-gray-500">
-                  Are you sure you want to delete this expense data? This action cannot be undone.
+    {/* Delete Confirmation Modal */}
+    {showDeleteConfirm && (
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="relative top-20 mx-auto p-6 border w-96 shadow-lg rounded-md bg-white">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Confirm Delete</h3>
+            <button
+              onClick={cancelDelete}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <AlertCircle className="h-6 w-6 text-red-500 mr-3" />
+              <div>
+                <p className="text-sm font-medium text-gray-900">
+                  Are you sure you want to delete this expense record?
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  This action cannot be undone and will affect financial calculations.
                 </p>
               </div>
-              <div className="flex justify-center space-x-3 mt-4">
-                <button
-                  onClick={cancelDelete}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={confirmDeleteExpense}
-                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                >
-                  Delete
-                </button>
-              </div>
             </div>
+
+            {(() => {
+              const expense = expenseData.find(e => e.id === showDeleteConfirm);
+              return expense ? (
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-sm space-y-1">
+                    <p><strong>Location:</strong> {expense.location}</p>
+                    <p><strong>Period:</strong> {new Date(expense.year, parseInt(expense.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                    <p><strong>Total Expenses:</strong> {formatCurrency(expense.totalExpenses)}</p>
+                    <p><strong>Entered by:</strong> {expense.enteredBy}</p>
+                  </div>
+                </div>
+              ) : null;
+            })()}
+          </div>
+
+          <div className="flex justify-end space-x-3 mt-6">
+            <button
+              onClick={cancelDelete}
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirmDeleteExpense}
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Delete Expense
+            </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
     </div>
   );
 };

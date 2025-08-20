@@ -42,10 +42,10 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
   const [showImportForm, setShowImportForm] = useState<boolean>(false);
   const [importForm, setImportForm] = useState<Partial<BusinessExpenseData>>({
     month: (new Date().getMonth() + 1).toString().padStart(2, '0'),
-  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
     year: new Date().getFullYear(),
     location: 'St. Albert',
   });
+  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
 
   const locations = ['St. Albert', 'Spruce Grove', 'Sherwood Park', 'Wellness'];

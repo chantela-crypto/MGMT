@@ -38,6 +38,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
   const [selectedDivision, setSelectedDivision] = useState<string>('all');
   const [selectedTimeframe, setSelectedTimeframe] = useState<'monthly' | 'ytd'>('monthly');
+  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
   const [viewMode, setViewMode] = useState<'overview' | 'detailed' | 'trends'>('overview');
   const [showImportForm, setShowImportForm] = useState<boolean>(false);
   const [importForm, setImportForm] = useState<Partial<BusinessExpenseData>>({

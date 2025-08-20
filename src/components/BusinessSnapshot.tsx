@@ -45,8 +45,6 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
     year: new Date().getFullYear(),
     location: 'St. Albert',
   });
-  const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
 
   const locations = ['St. Albert', 'Spruce Grove', 'Sherwood Park', 'Wellness'];
 
@@ -263,8 +261,8 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
       return;
     }
 
-    const expenseData: BusinessExpenseData = {
-      id: editingExpense?.id || `expense-${Date.now()}`,
+    const newExpense: BusinessExpenseData = {
+      id: `expense-${Date.now()}`,
       location: importForm.location!,
       month: importForm.month!,
       year: importForm.year!,
@@ -279,23 +277,13 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                     (importForm.supplies || 0) + (importForm.marketing || 0) + (importForm.maintenance || 0) + 
                     (importForm.otherExpenses || 0),
       divisionAllocations: importForm.divisionAllocations || {},
-      enteredBy: editingExpense?.enteredBy || currentUser.name,
-      enteredAt: editingExpense?.enteredAt || new Date(),
-      lastUpdatedBy: currentUser.name,
+      enteredBy: currentUser.id,
+      enteredAt: new Date(),
+      lastUpdatedBy: currentUser.id,
       lastUpdatedAt: new Date(),
     };
 
-    if (editingExpense) {
-      // Update existing expense
-      setExpenseData(prev => prev.map(expense => 
-        expense.id === editingExpense.id ? expenseData : expense
-      ));
-      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} updated successfully!`);
-    } else {
-      // Add new expense
-      setExpenseData(prev => [...prev, expenseData]);
-      setSuccessMessage(`Expense data for ${expenseData.location} - ${new Date(expenseData.year, parseInt(expenseData.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} saved successfully!`);
-    }
+    setBusinessExpenses(prev => {
       const filtered = prev.filter(exp => 
         !(exp.location === newExpense.location && 
           exp.month === newExpense.month && 
@@ -330,8 +318,8 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
       ])
     ];
     
+    const csvContent = csvData.map(row => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
-    setEditingExpense(null);
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1173,7 +1161,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
               {/* Form Actions */}
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
                 <button
-                onClick={handleCloseForm}
+                  onClick={() => setShowImportForm(false)}
                   className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                 >
                   Cancel
@@ -1183,74 +1171,13 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                   className="px-4 py-2 bg-[#0c5b63] text-white rounded-md hover:bg-[#0f6b73] flex items-center"
                 >
                   <Save className="h-4 w-4 mr-2" />
-                {editingExpense ? 'Update Expenses' : 'Save Expenses'}
+                  Save Expenses
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
-
-    {/* Delete Confirmation Modal */}
-    {showDeleteConfirm && (
-      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div className="relative top-20 mx-auto p-6 border w-96 shadow-lg rounded-md bg-white">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold text-gray-900">Confirm Delete</h3>
-            <button
-              onClick={cancelDelete}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex items-center">
-              <AlertCircle className="h-6 w-6 text-red-500 mr-3" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">
-                  Are you sure you want to delete this expense record?
-                </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  This action cannot be undone and will affect financial calculations.
-                </p>
-              </div>
-            </div>
-
-            {(() => {
-              const expense = expenseData.find(e => e.id === showDeleteConfirm);
-              return expense ? (
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-sm space-y-1">
-                    <p><strong>Location:</strong> {expense.location}</p>
-                    <p><strong>Period:</strong> {new Date(expense.year, parseInt(expense.month) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
-                    <p><strong>Total Expenses:</strong> {formatCurrency(expense.totalExpenses)}</p>
-                    <p><strong>Entered by:</strong> {expense.enteredBy}</p>
-                  </div>
-                </div>
-              ) : null;
-            })()}
-          </div>
-
-          <div className="flex justify-end space-x-3 mt-6">
-            <button
-              onClick={cancelDelete}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={confirmDeleteExpense}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Delete Expense
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
     </div>
   );
 };

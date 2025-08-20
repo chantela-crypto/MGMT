@@ -604,7 +604,7 @@ const SchedulingCalendar: React.FC<SchedulingCalendarProps> = ({
                   <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
                   <span>Locked</span>
                 </div>
-              )}
+              }
             </div>
           </div>
         </div>

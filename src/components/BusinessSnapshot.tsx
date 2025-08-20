@@ -7,8 +7,24 @@ import {
   Building2, MapPin, DollarSign, TrendingUp, TrendingDown,
   Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X, AlertCircle,
   Grid, List, Download, FileText, Edit, Trash2, PieChart, 
-  Activity, Clock, Users, Zap
+  PieChart, Activity, Clock, Users, Zap, Calendar, Settings,
+  Percent, Calculator, TrendingDown as Decline, Award,
+  CheckCircle, ExclamationTriangle, Info, ArrowUpRight,
+  ArrowDownRight, Lightbulb, Brain, Star, Shield
 } from 'lucide-react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell,
+} from 'recharts';
 import {
   BarChart,
   Bar,
@@ -39,6 +55,15 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
   const [selectedDivision, setSelectedDivision] = useState<string>('all');
   const [selectedTimeframe, setSelectedTimeframe] = useState<'monthly' | 'ytd'>('monthly');
   const [editingExpense, setEditingExpense] = useState<BusinessExpenseData | null>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'trends' | 'insights' | 'forecasting'>('overview');
+  const [viewMode, setViewMode] = useState<'cards' | 'table' | 'charts'>('cards');
+  const [comparisonMode, setComparisonMode] = useState<'month-over-month' | 'year-over-year' | 'budget-vs-actual'>('month-over-month');
+  const [showAdvancedMetrics, setShowAdvancedMetrics] = useState<boolean>(false);
+  const [alertThresholds, setAlertThresholds] = useState({
+    lowMargin: 15, // Alert if margin below 15%
+    highExpenseRatio: 70, // Alert if expenses > 70% of revenue
+    revenueDecline: 10, // Alert if revenue drops > 10%
+  });
   const [viewMode, setViewMode] = useState<'overview' | 'detailed' | 'trends'>('overview');
   const [showImportForm, setShowImportForm] = useState<boolean>(false);
   const [importForm, setImportForm] = useState<Partial<BusinessExpenseData>>({

@@ -330,6 +330,44 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
     URL.revokeObjectURL(url);
   };
 
+  // Handle editing existing expense
+  const handleEditExpense = (location: string) => {
+    const existingExpense = expenseData.find(expense => 
+      expense.location === location && 
+      expense.month === selectedMonth && 
+      expense.year === selectedYear
+    );
+    
+    if (existingExpense) {
+      setEditingExpense(existingExpense);
+      setSelectedLocation(location);
+      setExpenseForm({
+        rent: existingExpense.rent,
+        utilities: existingExpense.utilities,
+        insurance: existingExpense.insurance,
+        supplies: existingExpense.supplies,
+        marketing: existingExpense.marketing,
+        maintenance: existingExpense.maintenance,
+        otherExpenses: existingExpense.otherExpenses,
+        divisionAllocations: existingExpense.divisionAllocations,
+        notes: existingExpense.notes,
+      });
+      setShowExpenseForm(true);
+    }
+  };
+
+  // Handle deleting expense
+  const handleDeleteExpense = (location: string) => {
+    if (window.confirm(`Are you sure you want to delete expense data for ${location} in ${new Date(selectedYear, parseInt(selectedMonth) - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}?`)) {
+      setExpenseData(prev => prev.filter(expense => 
+        !(expense.location === location && 
+          expense.month === selectedMonth && 
+          expense.year === selectedYear)
+      ));
+      alert('Expense data deleted successfully!');
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Enhanced Header */}

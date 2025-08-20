@@ -7,7 +7,7 @@ import {
   Building2, MapPin, DollarSign, TrendingUp, TrendingDown,
   Plus, Save, Calendar, BarChart3, Target, Eye, Filter, X, AlertCircle,
   Grid, List, Download, FileText, Edit, Trash2, PieChart, 
-  Activity, Clock, Users, Zap, CheckCircle
+  Activity, Clock, Users, Zap
 } from 'lucide-react';
 import {
   BarChart,
@@ -1171,7 +1171,7 @@ const BusinessSnapshot: React.FC<BusinessSnapshotProps> = ({
                   onClick={handleSaveExpense}
                   className="px-4 py-2 bg-[#0c5b63] text-white rounded-md hover:bg-[#0f6b73] flex items-center"
                 >
-                  <Save className="h-4 w-4 mr-2" />
+                    {editingExpense ? 'Update Expenses' : 'Save Expenses'}
                   Save Expenses
                 </button>
               </div>
